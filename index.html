@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>leopoldoronaldi | Links</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <button id="music-toggle" onclick="toggleMusic()">
+        <i class="fas fa-volume-up"></i> 
+    </button>
+
+    <div id="intro-overlay">
+        
+        <div id="mouse-cursor"><i class="fas fa-mouse-pointer"></i></div>
+        
+        <div class="console-box">
+            <p class="boot-text">SYSTEM BOOTING...</p>
+            <div class="loading-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <button id="start-button" onclick="handleFirstInteraction()">
+                START SEQUENCE
+            </button>
+        </div>
+    </div>
+
+    <audio id="background-music" loop>
+        <source src="phonk-phonk-music-beat-419315.mp3" type="audio/mpeg">
+        Dein Browser unterstützt das Audio-Element nicht.
+    </audio>
+
+    <div class="hintergrund-container-yt">
+        <iframe 
+            id="video-bg-yt"
+            src="https://www.youtube.com/embed/Z90rTdVoomY?controls=0&autoplay=1&mute=1&loop=1&playlist=Z90rTdVoomY&vq=hd1080&modestbranding=1"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            allowfullscreen>
+        </iframe>
+    </div>
+    
+    <div class="link-kasten" id="link-kasten">
+        
+        <img src="wmremove-transformed (12).png" alt="Dein Profilbild" class="profilbild">
+        <h1>leopoldoronaldi</h1>
+        
+        <a href="#" class="link-button instagram" onclick="handleLinkClick('#no-account-instagram', 'instagram'); return false;">
+            <i class="fab fa-instagram"></i> Kein Instagram
+        </a>
+        
+        <a href="#" class="link-button tiktok" onclick="handleLinkClick('https://www.tiktok.com/@leopoldoronaldi01', 'tiktok'); return false;">
+            <i class="fab fa-tiktok"></i> TikTok
+        </a>
+        
+        <a href="#" class="link-button twitch" onclick="handleLinkClick('https://www.twitch.tv/einfachshorts', 'twitch'); return false;">
+            <i class="fab fa-twitch"></i> Twitch
+        </a>
+        
+        <a href="#" class="link-button roblox" onclick="handleLinkClick('https://www.roblox.com/de/users/7156557683/profile', 'roblox'); return false;">
+            <i class="fa-solid fa-gamepad"></i> Roblox
+        </a>
+        
+    </div>
+
+    <div id="loader-overlay">
+        <div class="loader-circle"></div> 
+    </div>
+
+    <script>
+        const audio = document.getElementById('background-music');
+        const loaderOverlay = document.getElementById('loader-overlay');
+        const introOverlay = document.getElementById('intro-overlay');
+        const linkKasten = document.getElementById('link-kasten');
+        const musicToggle = document.getElementById('music-toggle'); 
+        const startButton = document.getElementById('start-button');
+        const mouseCursor = document.getElementById('mouse-cursor');
+        
+        let interactionHappened = false;
+        let mouseInterval;
+
+        // Funktion zum Starten/Pausieren der Musik (Für den Mute-Button)
+        function toggleMusic() {
+            if (!interactionHappened) {
+                handleFirstInteraction();
+                return;
+            }
+
+            if (audio.paused) {
+                audio.play().catch(error => {});
+                musicToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+            } else {
+                audio.pause();
+                musicToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            }
+        }
+
+        // Funktion zum zufälligen Bewegen des Maus-Indikators
+        function moveMouseCursor() {
+            const maxX = window.innerWidth - 50;
+            const maxY = window.innerHeight - 50;
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+            
+            mouseCursor.classList.add('jump'); 
+
+            setTimeout(() => {
+                mouseCursor.style.opacity = 0; 
+                mouseCursor.style.left = `${randomX}px`;
+                mouseCursor.style.top = `${randomY}px`;
+            }, 250); 
+
+            setTimeout(() => {
+                mouseCursor.style.opacity = 1;
+                mouseCursor.classList.remove('jump');
+            }, 750); 
+        }
+
+        // HÖHEPUNKT: Startet die gesamte Sequenz beim Klick auf den Button
+        function handleFirstInteraction() {
+            if (interactionHappened) return;
+            interactionHappened = true;
+            
+            // 1. Stoppe das Maus-Springen
+            clearInterval(mouseInterval);
+            mouseCursor.style.display = 'none';
+            
+            // 2. Starte die Musik 
+            audio.play().catch(error => {});
+            
+            // 3. Start-Overlay blendet aus
+            introOverlay.classList.add('fade-out');
+            
+            // 4. Zeige den Mute-Button nach dem Intro-Fade
+            setTimeout(() => {
+                musicToggle.style.opacity = 1;
+            }, 1000); 
+
+            // 5. Kasten klappt auf
+            setTimeout(() => {
+                linkKasten.classList.add('show-kasten'); 
+            }, 1000); 
+
+            // 6. Nach dem Aufklappen: Inhalt sichtbar machen
+            setTimeout(() => {
+                linkKasten.classList.add('show-content'); 
+            }, 2000); 
+        }
+
+        // Setzt das Maus-Springen sofort in Gang
+        window.onload = function() {
+            mouseInterval = setInterval(moveMouseCursor, 1000); 
+        };
+        
+        // Fängt den Klick auf die gesamte Seite ab, falls der Benutzer nicht den Start-Button klickt
+        document.addEventListener('click', () => {
+             if (!interactionHappened) {
+                handleFirstInteraction();
+            }
+        });
+        document.addEventListener('touchstart', () => {
+             if (!interactionHappened) {
+                handleFirstInteraction();
+            }
+        });
+
+        // NEU: Funktion zum Zurücksetzen des Loaders (Fehlerbehebung)
+        function resetLoader() {
+            loaderOverlay.classList.remove('expand');
+            loaderOverlay.classList.remove('visible');
+        }
+
+
+        // FUNKTION ZUR VERZÖGERTEN WEITERLEITUNG MIT ANIMATION
+        function handleLinkClick(url, colorClass) {
+             // Stellt sicher, dass die Sequenz gestartet wurde
+            if (!interactionHappened) {
+                handleFirstInteraction(); 
+                return false;
+            }
+
+            // Button-Animationen (Ladebalken/Overlay)
+            loaderOverlay.classList.add('visible');
+            const buttonColor = getComputedStyle(document.querySelector(`.${colorClass}`)).backgroundColor;
+            loaderOverlay.style.backgroundColor = buttonColor;
+
+            // NEU: SPEZIALFALL KEIN INSTAGRAM ACCOUNT
+            if (url === '#no-account-instagram') {
+                setTimeout(() => {
+                    alert('FEHLER: Kein Instagram-Account hinterlegt. Zurück zur Link-Seite.');
+                    resetLoader(); 
+                }, 2000); // 2 Sekunden Fehler-Delay
+                
+                return false;
+            }
+
+            // 1 Sekunde Verzögerung
+            setTimeout(() => {
+                // Übergangs-Animation
+                loaderOverlay.classList.add('expand'); 
+                
+                // Weiterleitung
+                window.open(url, '_blank');
+
+                // NEU: Verzögerter Reset, um sicherzustellen, dass die Hauptseite den Reset-Befehl erhält
+                setTimeout(resetLoader, 100); 
+
+            }, 1000); 
+            
+            return false; 
+        }
+    </script> 
+
+</body>
+</html>

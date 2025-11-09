@@ -1,0 +1,311 @@
+/* Grundlegende Einstellungen */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh; 
+    background-color: black;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    position: relative; 
+}
+
+/* --- NEU: ZUFÄLLIG SPRINGENDER MAUS-INDIKATOR --- */
+#mouse-cursor {
+    position: fixed;
+    color: #00ffc8;
+    font-size: 3em;
+    z-index: 10001; 
+    transition: left 0.5s ease-in-out, top 0.5s ease-in-out; 
+    text-shadow: 0 0 10px #00ffc8; 
+}
+
+/* Die Klasse 'jump' wird vom JS gesetzt, um den Klick-Effekt auszulösen */
+#mouse-cursor.jump {
+    animation: click-pulse 0.5s ease-out; 
+}
+
+/* Keyframe für den Klick-Puls (simuliert den Klick-Effekt) */
+@keyframes click-pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2) rotate(15deg); opacity: 0.9; }
+    100% { transform: scale(1); opacity: 1; }
+}
+/* ----------------------------------------------- */
+
+
+/* --- MUSIK BUTTON (Mute/Unmute) --- */
+#music-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #00ffc8; 
+    border: 1px solid #00ffc8;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 100;
+    transition: background-color 0.2s, opacity 1s ease-out;
+    box-shadow: 0 0 10px rgba(0, 255, 200, 0.5);
+    
+    /* STARTZUSTAND: Unsichtbar */
+    opacity: 0; 
+}
+
+#music-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+
+/* --- YOUTUBE HINTERGRUND UND KLICKSCHUTZ --- */
+.hintergrund-container-yt {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); 
+    z-index: -1; 
+    overflow: hidden; 
+}
+
+#video-bg-yt {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 177.77vh; 
+    min-height: 56.25vw; 
+    z-index: -2; 
+    background-color: transparent; 
+}
+
+/* --- HINTERGRUNDMUSIK (Verstecken) --- */
+#background-music {
+    display: none; 
+}
+
+/* --- 1. START-BILDSCHIRM (Intro-Overlay) --- */
+#intro-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black; 
+    z-index: 10000; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    transition: opacity 1s ease-out; 
+    opacity: 1;
+}
+
+/* NEU: Konsolen-Styles für das Intro */
+.console-box {
+    text-align: center;
+    color: #00ffc8; 
+    font-family: monospace; 
+    text-shadow: 0 0 8px rgba(0, 255, 200, 0.7);
+    padding: 20px;
+}
+
+.boot-text {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    animation: text-flicker 0.01s infinite alternate; 
+}
+
+.loading-bar {
+    width: 300px;
+    height: 15px;
+    border: 1px solid #00ffc8;
+    margin: 20px auto;
+    overflow: hidden;
+    box-shadow: 0 0 5px #00ffc8;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0;
+    background-color: #00ffc8;
+    animation: load-fill 2s ease-out forwards; 
+}
+
+/* NEU: Styling für den Start-Button */
+#start-button {
+    background-color: #00ffc8;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    font-family: monospace;
+    font-size: 1.2em;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(0, 255, 200, 0.7);
+    transition: transform 0.1s ease-in-out;
+}
+
+#start-button:hover {
+    transform: scale(1.05);
+}
+
+/* Keyframes für die neuen Animationen */
+@keyframes load-fill {
+    to { width: 100%; }
+}
+
+@keyframes text-flicker {
+    0% { opacity: 0.8; }
+    50% { opacity: 1; }
+    100% { opacity: 0.8; }
+}
+
+#intro-overlay.fade-out {
+    opacity: 0;
+    pointer-events: none; 
+}
+
+
+/* --- 2. LINK KASTEN (Die aufklappbare Box) --- */
+.link-kasten {
+    width: 90%; 
+    max-width: 400px; 
+    margin: 20px; 
+    
+    /* STARTZUSTAND: Zusammengeklappt */
+    max-height: 0; 
+    padding: 0 30px; 
+    overflow: hidden;
+    opacity: 1; 
+    
+    /* Transition für das Aufklappen (1 Sekunde) */
+    transition: max-height 1s ease-out, padding 1s ease-out; 
+
+    /* Hintergrund-Styles */
+    background-color: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(10px); 
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5); 
+    color: white; 
+}
+
+/* KLASSE: Kasten klappt auf */
+.link-kasten.show-kasten {
+    max-height: 800px; 
+    padding: 30px; 
+}
+
+/* INHALT: Startet unsichtbar und wird nach Aufklappen sichtbar */
+.link-kasten * {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+}
+
+.link-kasten.show-content * {
+    opacity: 1;
+}
+
+/* --- 3. PROFILBILD & LINKS/BUTTONS --- */
+.profilbild {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; 
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid #7289da;
+}
+
+/* WICHTIG: Passt für A-Tags und sorgt für Block-Verhalten */
+.link-button {
+    display: block; 
+    text-decoration: none; 
+    color: white;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, transform 0.1s ease; 
+    font-weight: bold;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    text-align: left; 
+    cursor: pointer;
+}
+
+.link-button:hover {
+    background-color: rgba(255, 255, 255, 0.2); 
+    transform: translateY(-2px); 
+}
+
+/* Farben für die einzelnen Links */
+.link-button.instagram { background: #e1306c; }
+.link-button.tiktok { background: #000000; }
+.link-button.twitch { background: #6441a5; }
+.link-button.roblox { background: #1994a3; }
+
+/* Icon-Abstand */
+.link-button i {
+    margin-right: 10px;
+}
+
+/* Für kleinere Bildschirme */
+@media (max-width: 600px) {
+    .link-kasten.show-kasten { max-height: 700px; }
+}
+
+/* --- LADE-ANIMATION FÜR BUTTON-KLICK --- */
+
+#loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent; 
+    z-index: -10; 
+    opacity: 0; 
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: opacity 0.3s ease-out, background-color 0.3s ease-out;
+}
+
+#loader-overlay.visible {
+    opacity: 1;
+    z-index: 9999; 
+}
+
+.loader-circle {
+    border: 4px solid rgba(255, 255, 255, 0.5); 
+    border-top: 4px solid white; 
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite; 
+    
+    transform: scale(1);
+    transition: transform 0.5s ease-in; 
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#loader-overlay.expand {
+    transform: scale(100); 
+    opacity: 1;
+}
+
+#loader-overlay.expand .loader-circle {
+    opacity: 0;
+}
