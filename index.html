@@ -81,8 +81,6 @@
         
         let interactionHappened = false;
         let mouseInterval;
-
-        // Funktion zum Starten/Pausieren der Musik (Für den Mute-Button)
         function toggleMusic() {
             if (!interactionHappened) {
                 handleFirstInteraction();
@@ -98,7 +96,6 @@
             }
         }
 
-        // Funktion zum zufälligen Bewegen des Maus-Indikators
         function moveMouseCursor() {
             const maxX = window.innerWidth - 50;
             const maxY = window.innerHeight - 50;
@@ -119,43 +116,40 @@
             }, 750); 
         }
 
-        // HÖHEPUNKT: Startet die gesamte Sequenz beim Klick auf den Button
         function handleFirstInteraction() {
             if (interactionHappened) return;
             interactionHappened = true;
             
-            // 1. Stoppe das Maus-Springen
+      
             clearInterval(mouseInterval);
             mouseCursor.style.display = 'none';
             
-            // 2. Starte die Musik 
+        
             audio.play().catch(error => {});
-            
-            // 3. Start-Overlay blendet aus
+  
             introOverlay.classList.add('fade-out');
-            
-            // 4. Zeige den Mute-Button nach dem Intro-Fade
+
             setTimeout(() => {
                 musicToggle.style.opacity = 1;
             }, 1000); 
 
-            // 5. Kasten klappt auf
+         
             setTimeout(() => {
                 linkKasten.classList.add('show-kasten'); 
             }, 1000); 
 
-            // 6. Nach dem Aufklappen: Inhalt sichtbar machen
+            
             setTimeout(() => {
                 linkKasten.classList.add('show-content'); 
             }, 2000); 
         }
 
-        // Setzt das Maus-Springen sofort in Gang
+
         window.onload = function() {
             mouseInterval = setInterval(moveMouseCursor, 1000); 
         };
         
-        // Fängt den Klick auf die gesamte Seite ab, falls der Benutzer nicht den Start-Button klickt
+
         document.addEventListener('click', () => {
              if (!interactionHappened) {
                 handleFirstInteraction();
@@ -167,16 +161,16 @@
             }
         });
 
-        // NEU: Funktion zum Zurücksetzen des Loaders (Fehlerbehebung)
+
         function resetLoader() {
             loaderOverlay.classList.remove('expand');
             loaderOverlay.classList.remove('visible');
         }
 
 
-        // FUNKTION ZUR VERZÖGERTEN WEITERLEITUNG MIT ANIMATION
+    
         function handleLinkClick(url, colorClass) {
-             // Stellt sicher, dass die Sequenz gestartet wurde
+    
             if (!interactionHappened) {
                 handleFirstInteraction(); 
                 return false;
@@ -215,4 +209,5 @@
     </script> 
 
 </body>
+
 </html>
