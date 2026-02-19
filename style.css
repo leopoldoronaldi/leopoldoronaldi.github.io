@@ -1,4 +1,3 @@
-/* Grundlegende Einstellungen */
 body {
     margin: 0;
     padding: 0;
@@ -12,7 +11,6 @@ body {
     position: relative; 
 }
 
-/* --- NEU: ZUFÄLLIG SPRINGENDER MAUS-INDIKATOR --- */
 #mouse-cursor {
     position: fixed;
     color: #00ffc8;
@@ -22,21 +20,17 @@ body {
     text-shadow: 0 0 10px #00ffc8; 
 }
 
-/* Die Klasse 'jump' wird vom JS gesetzt, um den Klick-Effekt auszulösen */
 #mouse-cursor.jump {
     animation: click-pulse 0.5s ease-out; 
 }
 
-/* Keyframe für den Klick-Puls (simuliert den Klick-Effekt) */
 @keyframes click-pulse {
     0% { transform: scale(1); opacity: 1; }
     50% { transform: scale(1.2) rotate(15deg); opacity: 0.9; }
     100% { transform: scale(1); opacity: 1; }
 }
-/* ----------------------------------------------- */
 
 
-/* --- MUSIK BUTTON (Mute/Unmute) --- */
 #music-toggle {
     position: fixed;
     top: 20px;
@@ -53,7 +47,6 @@ body {
     transition: background-color 0.2s, opacity 1s ease-out;
     box-shadow: 0 0 10px rgba(0, 255, 200, 0.5);
     
-    /* STARTZUSTAND: Unsichtbar */
     opacity: 0; 
 }
 
@@ -62,7 +55,6 @@ body {
 }
 
 
-/* --- YOUTUBE HINTERGRUND UND KLICKSCHUTZ --- */
 .hintergrund-container-yt {
     position: fixed; 
     top: 0;
@@ -87,12 +79,10 @@ body {
     background-color: transparent; 
 }
 
-/* --- HINTERGRUNDMUSIK (Verstecken) --- */
 #background-music {
     display: none; 
 }
 
-/* --- 1. START-BILDSCHIRM (Intro-Overlay) --- */
 #intro-overlay {
     position: fixed;
     top: 0;
@@ -109,7 +99,6 @@ body {
     opacity: 1;
 }
 
-/* NEU: Konsolen-Styles für das Intro */
 .console-box {
     text-align: center;
     color: #00ffc8; 
@@ -140,7 +129,6 @@ body {
     animation: load-fill 2s ease-out forwards; 
 }
 
-/* NEU: Styling für den Start-Button */
 #start-button {
     background-color: #00ffc8;
     color: black;
@@ -157,7 +145,6 @@ body {
     transform: scale(1.05);
 }
 
-/* Keyframes für die neuen Animationen */
 @keyframes load-fill {
     to { width: 100%; }
 }
@@ -174,22 +161,18 @@ body {
 }
 
 
-/* --- 2. LINK KASTEN (Die aufklappbare Box) --- */
 .link-kasten {
     width: 90%; 
     max-width: 400px; 
     margin: 20px; 
     
-    /* STARTZUSTAND: Zusammengeklappt */
     max-height: 0; 
     padding: 0 30px; 
     overflow: hidden;
     opacity: 1; 
     
-    /* Transition für das Aufklappen (1 Sekunde) */
     transition: max-height 1s ease-out, padding 1s ease-out; 
 
-    /* Hintergrund-Styles */
     background-color: rgba(255, 255, 255, 0.1); 
     backdrop-filter: blur(10px); 
     border-radius: 20px;
@@ -198,13 +181,11 @@ body {
     color: white; 
 }
 
-/* KLASSE: Kasten klappt auf */
 .link-kasten.show-kasten {
     max-height: 800px; 
     padding: 30px; 
 }
 
-/* INHALT: Startet unsichtbar und wird nach Aufklappen sichtbar */
 .link-kasten * {
     opacity: 0;
     transition: opacity 0.5s ease-out;
@@ -214,7 +195,6 @@ body {
     opacity: 1;
 }
 
-/* --- 3. PROFILBILD & LINKS/BUTTONS --- */
 .profilbild {
     width: 100px;
     height: 100px;
@@ -224,7 +204,6 @@ body {
     border: 3px solid #7289da;
 }
 
-/* WICHTIG: Passt für A-Tags und sorgt für Block-Verhalten */
 .link-button {
     display: block; 
     text-decoration: none; 
@@ -244,23 +223,19 @@ body {
     transform: translateY(-2px); 
 }
 
-/* Farben für die einzelnen Links */
 .link-button.instagram { background: #e1306c; }
 .link-button.tiktok { background: #000000; }
 .link-button.twitch { background: #6441a5; }
 .link-button.roblox { background: #1994a3; }
 
-/* Icon-Abstand */
 .link-button i {
     margin-right: 10px;
 }
 
-/* Für kleinere Bildschirme */
 @media (max-width: 600px) {
     .link-kasten.show-kasten { max-height: 700px; }
 }
 
-/* --- LADE-ANIMATION FÜR BUTTON-KLICK --- */
 
 #loader-overlay {
     position: fixed;
@@ -308,4 +283,5 @@ body {
 
 #loader-overlay.expand .loader-circle {
     opacity: 0;
+
 }
