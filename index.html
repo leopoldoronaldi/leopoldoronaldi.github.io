@@ -186,20 +186,16 @@
                 setTimeout(() => {
                     alert('FEHLER: Kein Instagram-Account hinterlegt. Zurück zur Link-Seite.');
                     resetLoader(); 
-                }, 2000); // 2 Sekunden Fehler-Delay
+                }, 2000);
                 
                 return false;
             }
 
-            // 1 Sekunde Verzögerung
             setTimeout(() => {
-                // Übergangs-Animation
                 loaderOverlay.classList.add('expand'); 
                 
-                // Weiterleitung
                 window.open(url, '_blank');
 
-                // NEU: Verzögerter Reset, um sicherzustellen, dass die Hauptseite den Reset-Befehl erhält
                 setTimeout(resetLoader, 100); 
 
             }, 1000); 
@@ -211,3 +207,4 @@
 </body>
 
 </html>
+
