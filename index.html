@@ -176,12 +176,12 @@
                 return false;
             }
 
-            // Button-Animationen (Ladebalken/Overlay)
+
             loaderOverlay.classList.add('visible');
             const buttonColor = getComputedStyle(document.querySelector(`.${colorClass}`)).backgroundColor;
             loaderOverlay.style.backgroundColor = buttonColor;
 
-            // NEU: SPEZIALFALL KEIN INSTAGRAM ACCOUNT
+
             if (url === '#no-account-instagram') {
                 setTimeout(() => {
                     alert('FEHLER: Kein Instagram-Account hinterlegt. Zurück zur Link-Seite.');
@@ -207,4 +207,5 @@
 </body>
 
 </html>
+
 
